@@ -47,6 +47,14 @@ html, body {
   right: 0;
 }
 
+/* Force the base map tiles to render fully black & white, as a safety
+   net on top of the already-minimal grayscale basemap. This only
+   targets the map's own canvas, not popups, so popup styling is
+   unaffected. */
+.maplibregl-canvas {
+  filter: grayscale(100%) contrast(1.05);
+}
+
 /* ---------- Status / error box ---------- */
 .status {
   position: absolute;
