@@ -32,9 +32,47 @@ function hideStatus() {
 }
 
 /**
- * Free, no-API-key base map style: raw OpenStreetMap raster tiles.
- * This works with plain MapLibre GL JS without any account/token.
+ * Free, no-API-key base map style: Esri's classic "Light Gray Canvas" raster
+ * tile service (services.arcgisonline.com). This is a legacy, long-standing
+ * public REST tile service — distinct from Esri's newer key-gated basemap
+ * APIs — and has historically not required any account, token, or key for
+ * this kind of usage. It renders a minimal light-gray map showing only
+ * country/region borders, water, and streets — no building outlines,
+ * land-use coloring, or text labels.
+ *
+ * A CSS grayscale filter (see style.css) is applied on top as a safety net
+ * to guarantee a fully black-and-white look regardless of subtle tinting.
+ *
+ * Note: this is a third-party free service governed by Esri's terms of use.
+ * If it's ever unavailable or terms change, the OSM raw tile fallback used
+ * earlier can be swapped back in (see the commented block below).
  */
+const OSM_STYLE = {
+  version: 8,
+  sources: {
+    "esri-light-gray": {
+      type: "raster",
+      tiles: [
+        "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+      ],
+      tileSize: 256,
+      maxzoom: 16,
+      attribution:
+        "Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors, and the GIS community",
+    },
+  },
+  layers: [
+    {
+      id: "base-tiles",
+      type: "raster",
+      source: "esri-light-gray",
+      minzoom: 0,
+      maxzoom: 19,
+    },
+  ],
+};
+
+/* --- Fallback option (raw OpenStreetMap raster tiles), kept for reference:
 const OSM_STYLE = {
   version: 8,
   sources: {
@@ -45,16 +83,9 @@ const OSM_STYLE = {
       attribution: "&copy; OpenStreetMap contributors",
     },
   },
-  layers: [
-    {
-      id: "osm-tiles",
-      type: "raster",
-      source: "osm",
-      minzoom: 0,
-      maxzoom: 19,
-    },
-  ],
+  layers: [{ id: "osm-tiles", type: "raster", source: "osm" }],
 };
+--- */
 
 const map = new maplibregl.Map({
   container: "map",
