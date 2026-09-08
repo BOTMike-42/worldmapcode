@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Institutions Map</title>
+
+  <!-- MapLibre GL JS: free, open-source map rendering library. No API key required. -->
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+
+  <!-- PapaParse: small, dependable CSV parsing library -->
+  <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header id="header">
+    <h1>Research Institutions</h1>
+    <p>Node size reflects number of papers. Click a node for details.</p>
+  </header>
+
+  <div id="map"></div>
+
+  <!-- Small status/error box, mainly useful while debugging on GitHub Pages -->
+  <div id="status" class="status" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
