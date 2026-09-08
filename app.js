@@ -92,6 +92,7 @@ const map = new maplibregl.Map({
   style: OSM_STYLE,
   center: [10, 30],
   zoom: 1.5,
+  renderWorldCopies: false, // prevents the map repeating sideways when panned/zoomed out
 });
 
 map.addControl(new maplibregl.NavigationControl(), "top-right");
